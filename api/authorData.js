@@ -1,4 +1,5 @@
 import client from '../utils/client';
+// import { deleteBook, getSingleBook } from './bookData';
 
 const endpoint = client.databaseURL;
 
@@ -30,6 +31,18 @@ const updateAuthor = () => {};
 // TODO: GET A SINGLE AUTHOR'S BOOKS
 const getAuthorBooks = () => {};
 
+const favoriteAuthors = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/authors.json?orderBy="favoriten"&equalTo=true`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(Object.values(data)))
+    .catch(reject);
+});
+
 export {
   getAuthors,
   createAuthor,
@@ -37,4 +50,5 @@ export {
   deleteSingleAuthor,
   updateAuthor,
   getAuthorBooks,
+  favoriteAuthors,
 };
